@@ -32,22 +32,24 @@ namespace TaskManagement.Application.Commands.Projects
             return project.Id;
         }
 
-        public async Task Handle(UpdateProjectCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateProjectCommand request, CancellationToken cancellationToken)
         {
             var project = await _projectRepository.GetByIdAsync(request.ProjectId)
                 ?? throw new NotFoundException($"Project with ID {request.ProjectId} not found");
 
             project.UpdateDetails(request.Name, request.Description);
             await _unitOfWork.CommitAsync(cancellationToken);
+            return Unit.Value;
         }
 
-        public async Task Handle(DeleteProjectCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteProjectCommand request, CancellationToken cancellationToken)
         {
             var project = await _projectRepository.GetByIdAsync(request.ProjectId)
                 ?? throw new NotFoundException($"Project with ID {request.ProjectId} not found");
 
             _projectRepository.Delete(project);
             await _unitOfWork.CommitAsync(cancellationToken);
+            return Unit.Value;
         }
     }
 }

@@ -6,10 +6,10 @@ namespace TaskManagement.Domain.Events;
 public class TaskStatusChangedEvent : DomainEvent
 {
     public Guid TaskId { get; }
-    public TaskStatus OldStatus { get; }
-    public TaskStatus NewStatus { get; }
+    public TaskManagement.Domain.ValueObjects.TaskStatus OldStatus { get; }
+    public TaskManagement.Domain.ValueObjects.TaskStatus NewStatus { get; }
 
-    public TaskStatusChangedEvent(Guid taskId, TaskStatus oldStatus, TaskStatus newStatus)
+    public TaskStatusChangedEvent(Guid taskId, TaskManagement.Domain.ValueObjects.TaskStatus oldStatus, TaskManagement.Domain.ValueObjects.TaskStatus newStatus)
     {
         TaskId = taskId;
         OldStatus = oldStatus;

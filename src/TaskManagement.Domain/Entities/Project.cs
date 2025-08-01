@@ -1,6 +1,6 @@
 using TaskManagement.Domain.Common;
 using TaskManagement.Domain.Events;
-
+using DomainTaskStatus = TaskManagement.Domain.ValueObjects.TaskStatus;
 namespace TaskManagement.Domain.Entities;
 
 public class Project : BaseEntity
@@ -33,7 +33,7 @@ public class Project : BaseEntity
 
     public ProjectTask AddTask(string title, string description, DateTime? dueDate = null)
     {
-        var task = new ProjectTask(title, description, Id, dueDate);
+        var task = new ProjectTask(title, Id, description, dueDate);
         _tasks.Add(task);
         
         AddDomainEvent(new TaskAddedEvent(task.Id, Id, title));

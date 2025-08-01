@@ -13,29 +13,36 @@ namespace TaskManagement.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<User?> GetByIdAsync(Guid id)
+        public async Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            return await _context.Users.FindAsync(id);
+            return await _context.Users.FindAsync(new object[] { id }, cancellationToken);
         }
 
-        public async Task<IEnumerable<User>> GetAllAsync()
+        public async Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
         }
 
-        public async Task<User?> GetByEmailAsync(string email)
+        public async Task<IEnumerable<User>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            return await _context.Users.ToListAsync(cancellationToken);
         }
 
-        public async Task AddAsync(User user)
+        public async Task AddAsync(User user, CancellationToken cancellationToken = default)
         {
-            await _context.Users.AddAsync(user);
+            await _context.Users.AddAsync(user, cancellationToken);
         }
 
-        public void Update(User user)
+        public async Task UpdateAsync(User user, CancellationToken cancellationToken = default)
         {
             _context.Users.Update(user);
+            await Task.CompletedTask;
+        }
+
+        public async Task DeleteAsync(User user, CancellationToken cancellationToken = default)
+        {
+            _context.Users.Remove(user);
+            await Task.CompletedTask;
         }
 
         public void Delete(User user)

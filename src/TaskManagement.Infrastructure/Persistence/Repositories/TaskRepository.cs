@@ -14,65 +14,80 @@ namespace TaskManagement.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<ProjectTask?> GetByIdAsync(Guid id)
+        public async Task<ProjectTask?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return await _context.Tasks
                 .Include(t => t.Project)
                 .Include(t => t.AssignedUser)
-                .FirstOrDefaultAsync(t => t.Id == id);
+                .FirstOrDefaultAsync(t => t.Id == id, cancellationToken);
         }
 
-        public async Task<IEnumerable<ProjectTask>> GetAllAsync()
-        {
-            return await _context.Tasks
-                .Include(t => t.Project)
-                .Include(t => t.AssignedUser)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<ProjectTask>> GetByProjectIdAsync(Guid projectId)
+        public async Task<IEnumerable<ProjectTask>> GetByProjectIdAsync(Guid projectId, CancellationToken cancellationToken = default)
         {
             return await _context.Tasks
                 .Include(t => t.AssignedUser)
                 .Where(t => t.ProjectId == projectId)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<ProjectTask>> GetByAssigneeAsync(Guid userId)
+        public async Task<IEnumerable<ProjectTask>> GetFilteredAsync(
+            Guid? projectId = null,
+            Domain.ValueObjects.TaskStatus? status = null,
+            Priority? priority = null,
+            Guid? assignedUserId = null,
+            string? searchTerm = null,
+            DateTime? dueDateFrom = null,
+            DateTime? dueDateTo = null,
+            IEnumerable<string>? labels = null,
+            CancellationToken cancellationToken = default)
         {
-            return await _context.Tasks
-                .Include(t => t.Project)
-                .Where(t => t.AssignedUserId == userId)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<ProjectTask>> GetByStatusAsync(TaskStatus status)
-        {
-            return await _context.Tasks
+            var query = _context.Tasks
                 .Include(t => t.Project)
                 .Include(t => t.AssignedUser)
-                .Where(t => t.Status == status)
-                .ToListAsync();
+                .AsQueryable();
+
+            if (projectId.HasValue)
+                query = query.Where(t => t.ProjectId == projectId);
+
+            if (status.HasValue)
+                query = query.Where(t => t.Status == status);
+
+            if (priority.HasValue)
+                query = query.Where(t => t.Priority == priority);
+
+            if (assignedUserId.HasValue)
+                query = query.Where(t => t.AssignedUserId == assignedUserId);
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+                query = query.Where(t => t.Title.Contains(searchTerm) || t.Description.Contains(searchTerm));
+
+            if (dueDateFrom.HasValue)
+                query = query.Where(t => t.DueDate >= dueDateFrom);
+
+            if (dueDateTo.HasValue)
+                query = query.Where(t => t.DueDate <= dueDateTo);
+
+            if (labels != null && labels.Any())
+                query = query.Where(t => t.Labels.Any(l => labels.Contains(l)));
+
+            return await query.ToListAsync(cancellationToken);
         }
 
-        public async Task AddAsync(ProjectTask task)
+        public async Task AddAsync(ProjectTask task, CancellationToken cancellationToken = default)
         {
-            await _context.Tasks.AddAsync(task);
+            await _context.Tasks.AddAsync(task, cancellationToken);
         }
 
-        public void Update(ProjectTask task)
+        public async Task UpdateAsync(ProjectTask task, CancellationToken cancellationToken = default)
         {
             _context.Tasks.Update(task);
+            await Task.CompletedTask;
         }
 
-        public void Delete(ProjectTask task)
+        public async Task DeleteAsync(ProjectTask task, CancellationToken cancellationToken = default)
         {
             _context.Tasks.Remove(task);
-        }
-
-        public async Task<bool> ExistsAsync(Guid id)
-        {
-            return await _context.Tasks.AnyAsync(t => t.Id == id);
+            await Task.CompletedTask;
         }
     }
 }

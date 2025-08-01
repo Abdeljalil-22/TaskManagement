@@ -1,7 +1,7 @@
 using MediatR;
 using TaskManagement.Application.ReadModels.Projects;
 using Microsoft.EntityFrameworkCore;
-using TaskManagement.Infrastructure.Persistence;
+using TaskManagement.Application.Data;
 
 namespace TaskManagement.Application.Queries.Projects
 {
