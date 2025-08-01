@@ -1,0 +1,18 @@
+&lt;Project Sdk="Microsoft.NET.Sdk.Worker"&gt;
+
+  &lt;PropertyGroup&gt;
+    &lt;TargetFramework&gt;net7.0&lt;/TargetFramework&gt;
+    &lt;Nullable&gt;enable&lt;/Nullable&gt;
+    &lt;ImplicitUsings&gt;enable&lt;/ImplicitUsings&gt;
+  &lt;/PropertyGroup&gt;
+
+  &lt;ItemGroup&gt;
+    &lt;PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" /&gt;
+    &lt;PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.9" /&gt;
+  &lt;/ItemGroup&gt;
+
+  &lt;ItemGroup&gt;
+    &lt;ProjectReference Include="..\TaskManagement.Infrastructure\TaskManagement.Infrastructure.csproj" /&gt;
+  &lt;/ItemGroup&gt;
+
+&lt;/Project&gt;
