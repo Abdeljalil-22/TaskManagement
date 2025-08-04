@@ -5,7 +5,7 @@ using TaskManagement.Domain.ValueObjects;
 
 namespace TaskManagement.Infrastructure.Persistence.Repositories
 {
-    public class TaskRepository : ITaskRepository
+    public class TaskRepository : Domain.Interfaces.ITaskRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -14,80 +14,95 @@ namespace TaskManagement.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<ProjectTask?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task<ProjectTask?> GetByIdAsync(Guid id)
         {
             return await _context.Tasks
                 .Include(t => t.Project)
                 .Include(t => t.AssignedUser)
-                .FirstOrDefaultAsync(t => t.Id == id, cancellationToken);
+                .FirstOrDefaultAsync(t => t.Id == id);
         }
 
-        public async Task<IEnumerable<ProjectTask>> GetByProjectIdAsync(Guid projectId, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<ProjectTask>> GetAllAsync()
+        {
+            return await _context.Tasks
+                .Include(t => t.Project)
+                .Include(t => t.AssignedUser)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<ProjectTask>> GetByProjectIdAsync(Guid projectId)
         {
             return await _context.Tasks
                 .Include(t => t.AssignedUser)
                 .Where(t => t.ProjectId == projectId)
-                .ToListAsync(cancellationToken);
+                .ToListAsync();
         }
 
-        public async Task<IEnumerable<ProjectTask>> GetFilteredAsync(
-            Guid? projectId = null,
-            Domain.ValueObjects.TaskStatus? status = null,
-            Priority? priority = null,
-            Guid? assignedUserId = null,
-            string? searchTerm = null,
-            DateTime? dueDateFrom = null,
-            DateTime? dueDateTo = null,
-            IEnumerable<string>? labels = null,
-            CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<ProjectTask>> GetByAssigneeAsync(Guid userId)
         {
-            var query = _context.Tasks
+            return await _context.Tasks
+                .Include(t => t.Project)
+                .Where(t => t.AssignedUserId == userId)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<ProjectTask>> GetByStatusAsync(Domain.ValueObjects.TaskStatus status)
+        {
+            return await _context.Tasks
                 .Include(t => t.Project)
                 .Include(t => t.AssignedUser)
-                .AsQueryable();
-
-            if (projectId.HasValue)
-                query = query.Where(t => t.ProjectId == projectId);
-
-            if (status.HasValue)
-                query = query.Where(t => t.Status == status);
-
-            if (priority.HasValue)
-                query = query.Where(t => t.Priority == priority);
-
-            if (assignedUserId.HasValue)
-                query = query.Where(t => t.AssignedUserId == assignedUserId);
-
-            if (!string.IsNullOrWhiteSpace(searchTerm))
-                query = query.Where(t => t.Title.Contains(searchTerm) || t.Description.Contains(searchTerm));
-
-            if (dueDateFrom.HasValue)
-                query = query.Where(t => t.DueDate >= dueDateFrom);
-
-            if (dueDateTo.HasValue)
-                query = query.Where(t => t.DueDate <= dueDateTo);
-
-            if (labels != null && labels.Any())
-                query = query.Where(t => t.Labels.Any(l => labels.Contains(l)));
-
-            return await query.ToListAsync(cancellationToken);
+                // .Where(t => t.Status == status)
+                .ToListAsync();
         }
 
-        public async Task AddAsync(ProjectTask task, CancellationToken cancellationToken = default)
+        public async Task AddAsync(ProjectTask task)
         {
-            await _context.Tasks.AddAsync(task, cancellationToken);
+            await _context.Tasks.AddAsync(task);
         }
 
-        public async Task UpdateAsync(ProjectTask task, CancellationToken cancellationToken = default)
+        public void Update(ProjectTask task)
         {
             _context.Tasks.Update(task);
-            await Task.CompletedTask;
         }
 
-        public async Task DeleteAsync(ProjectTask task, CancellationToken cancellationToken = default)
+        public void Delete(ProjectTask task)
         {
             _context.Tasks.Remove(task);
-            await Task.CompletedTask;
+        }
+
+        public async Task<bool> ExistsAsync(Guid id)
+        {
+            return await _context.Tasks.AnyAsync(t => t.Id == id);
+        }
+
+        public Task<ProjectTask?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<ProjectTask>> GetByProjectIdAsync(Guid projectId, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<ProjectTask>> GetFilteredAsync(Guid? projectId = null, Domain.ValueObjects.TaskStatus? status = null, Priority? priority = null, Guid? assignedUserId = null, string? searchTerm = null, DateTime? dueDateFrom = null, DateTime? dueDateTo = null, IEnumerable<string>? labels = null, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddAsync(ProjectTask task, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateAsync(ProjectTask task, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteAsync(ProjectTask task, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,13 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "ZlwPU8gpCNI=",
+  "dgSpecHash": "9pmDSC47kJE=",
   "success": true,
   "projectFilePath": "/workspaces/TaskManagement/src/TaskManagement.Application/TaskManagement.Application.csproj",
   "expectedPackageFiles": [
     "/home/codespace/.nuget/packages/dapper/2.1.66/dapper.2.1.66.nupkg.sha512",
-    "/home/codespace/.nuget/packages/mediatr/11.1.0/mediatr.11.1.0.nupkg.sha512",
-    "/home/codespace/.nuget/packages/mediatr.contracts/1.0.1/mediatr.contracts.1.0.1.nupkg.sha512",
-    "/home/codespace/.nuget/packages/mediatr.extensions.microsoft.dependencyinjection/11.1.0/mediatr.extensions.microsoft.dependencyinjection.11.1.0.nupkg.sha512",
+    "/home/codespace/.nuget/packages/mediatr/12.5.0/mediatr.12.5.0.nupkg.sha512",
+    "/home/codespace/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
     "/home/codespace/.nuget/packages/microsoft.entityframeworkcore/9.0.7/microsoft.entityframeworkcore.9.0.7.nupkg.sha512",
     "/home/codespace/.nuget/packages/microsoft.entityframeworkcore.abstractions/9.0.7/microsoft.entityframeworkcore.abstractions.9.0.7.nupkg.sha512",
     "/home/codespace/.nuget/packages/microsoft.entityframeworkcore.analyzers/9.0.7/microsoft.entityframeworkcore.analyzers.9.0.7.nupkg.sha512",

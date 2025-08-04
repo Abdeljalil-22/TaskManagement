@@ -56,9 +56,9 @@ namespace TaskManagement.Infrastructure.Persistence.Configurations
                 .HasForeignKey(t => t.AssignedUserId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            // Store labels as JSON
-            builder.Property(t => t.Labels)
-                .HasJsonConversion();
+            //// Store labels as JSON
+            //builder.Property(t => t.Labels)
+            //    .HasJsonConversion();
 
             // Ignore domain events for the database
             builder.Ignore(t => t.DomainEvents);
@@ -71,7 +71,7 @@ namespace TaskManagement.Infrastructure.Persistence.Configurations
         {
             builder.HasKey(u => u.Id);
 
-            builder.Property(u => u.Name)
+            builder.Property(u => u.FirstName)
                 .IsRequired()
                 .HasMaxLength(100);
 

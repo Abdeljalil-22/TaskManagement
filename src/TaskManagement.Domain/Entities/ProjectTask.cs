@@ -8,7 +8,7 @@ public class ProjectTask : BaseEntity
 {
     public string Title { get; private set; } = string.Empty;
     public string? Description { get; private set; } = string.Empty;
-    public TaskManagement.Domain.ValueObjects.TaskStatus Status { get; private set; } = TaskManagement.Domain.ValueObjects.TaskStatus.ToDo;
+    public TaskStatus Status { get; private set; } = TaskStatus.ToDo;
     public Priority Priority { get; private set; } = Priority.Medium;
     public DateTime? DueDate { get; private set; }
     public Guid ProjectId { get; private set; }
@@ -21,11 +21,11 @@ public class ProjectTask : BaseEntity
 
     private ProjectTask() { } // EF Constructor
 
-    public ProjectTask(string title, Guid projectId, string? description = null, DateTime? dueDate = null)
+    public ProjectTask(string title, string? description = null, Guid projectId, DateTime? dueDate = null)
     {
         Title = title;
-        ProjectId = projectId;
         Description = description;
+        ProjectId = projectId;
         DueDate = dueDate;
     }
 
@@ -37,7 +37,7 @@ public class ProjectTask : BaseEntity
         SetUpdatedAt();
     }
 
-    public void ChangeStatus(TaskManagement.Domain.ValueObjects.TaskStatus newStatus)
+    public void ChangeStatus(TaskStatus newStatus)
     {
         if (Status == newStatus) return;
 
@@ -47,7 +47,7 @@ public class ProjectTask : BaseEntity
 
         AddDomainEvent(new TaskStatusChangedEvent(Id, oldStatus, newStatus));
 
-        if (newStatus == TaskManagement.Domain.ValueObjects.TaskStatus.Done)
+        if (newStatus == TaskStatus.Done)
         {
             AddDomainEvent(new TaskCompletedEvent(Id, Title));
         }
@@ -94,5 +94,5 @@ public class ProjectTask : BaseEntity
         }
     }
 
-    public bool IsOverdue => DueDate.HasValue && DueDate.Value < DateTime.UtcNow && Status != TaskManagement.Domain.ValueObjects.TaskStatus.Done;
+    public bool IsOverdue => DueDate.HasValue && DueDate.Value < DateTime.UtcNow && Status != TaskStatus.Done;
 }

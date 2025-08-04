@@ -55,15 +55,15 @@
           "dependencies": {
             "MediatR": {
               "target": "Package",
-              "version": "[11.1.0, )"
-            },
-            "MediatR.Extensions.Microsoft.DependencyInjection": {
-              "target": "Package",
-              "version": "[11.1.0, )"
+              "version": "[12.5.0, )"
             },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.18, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[9.0.7, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -142,11 +142,7 @@
             },
             "MediatR": {
               "target": "Package",
-              "version": "[11.1.0, )"
-            },
-            "MediatR.Extensions.Microsoft.DependencyInjection": {
-              "target": "Package",
-              "version": "[11.1.0, )"
+              "version": "[12.5.0, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -214,7 +210,7 @@
           "dependencies": {
             "MediatR": {
               "target": "Package",
-              "version": "[11.1.0, )"
+              "version": "[12.5.0, )"
             }
           },
           "imports": [
@@ -259,9 +255,6 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/workspaces/TaskManagement/src/TaskManagement.Application/TaskManagement.Application.csproj": {
-                "projectPath": "/workspaces/TaskManagement/src/TaskManagement.Application/TaskManagement.Application.csproj"
-              },
               "/workspaces/TaskManagement/src/TaskManagement.Domain/TaskManagement.Domain.csproj": {
                 "projectPath": "/workspaces/TaskManagement/src/TaskManagement.Domain/TaskManagement.Domain.csproj"
               }

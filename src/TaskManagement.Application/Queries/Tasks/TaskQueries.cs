@@ -1,7 +1,7 @@
 using MediatR;
 using TaskManagement.Application.ReadModels.Tasks;
 using Microsoft.EntityFrameworkCore;
-using TaskManagement.Application.Data;
+using TaskManagement.Infrastructure.Persistence;
 
 namespace TaskManagement.Application.Queries.Tasks
 {

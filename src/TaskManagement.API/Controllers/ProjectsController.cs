@@ -1,83 +1,90 @@
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using TaskManagement.Application.Commands.Projects;
-using TaskManagement.Application.Commands.Tasks;
-using TaskManagement.Application.Queries.Projects;
-using TaskManagement.Application.Queries.Tasks;
 using TaskManagement.Application.ReadModels.Projects;
+using Microsoft.EntityFrameworkCore;
+using TaskManagement.Application.Interfaces;
 
-namespace TaskManagement.API.Controllers
+namespace TaskManagement.Application.Queries.Projects
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ProjectsController : ControllerBase
+    public record GetProjectDetailsQuery(Guid ProjectId) : IRequest<ProjectDetails?>;
+    
+    public record GetAllProjectsQuery : IRequest<IReadOnlyList<ProjectSummary>>;
+    
+    public record GetProjectsByOwnerQuery(Guid OwnerId) : IRequest<IReadOnlyList<ProjectSummary>>;
+
+    public class ProjectQueryHandlers : 
+        IRequestHandler<GetProjectDetailsQuery, ProjectDetails?>,
+        IRequestHandler<GetAllProjectsQuery, IReadOnlyList<ProjectSummary>>,
+        IRequestHandler<GetProjectsByOwnerQuery, IReadOnlyList<ProjectSummary>>
     {
-        private readonly IMediator _mediator;
-        public ProjectsController(IMediator mediator)
+        private readonly IReadDbContext _readContext;
+
+        public ProjectQueryHandlers(IReadDbContext readContext)
         {
-            _mediator = mediator;
+            _readContext = readContext;
         }
 
-        // Read Operations
-        [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<ProjectSummary>>> GetAll()
+        public async Task<ProjectDetails?> Handle(GetProjectDetailsQuery request, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetAllProjectsQuery());
-            return Ok(result);
+            return await _readContext.Projects
+                .AsNoTracking()
+                .Where(p => p.Id == request.ProjectId)
+                .Select(p => new ProjectDetails
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Description = p.Description ?? string.Empty,
+                    OwnerId = p.OwnerId,
+                    OwnerName = p.OwnerName ?? string.Empty,
+                    TotalTasks = p.TotalTasks,
+                    CompletedTasks = p.CompletedTasks,
+                    CreatedAt = p.CreatedAt,
+                    LastUpdated = p.LastUpdated,
+                    Tasks = p.Tasks.Select(t => new TaskDetails
+                    {
+                        Id = t.Id,
+                        Title = t.Title,
+                        Description = t.Description ?? string.Empty,
+                        AssignedUserId = t.AssignedUserId,
+                        AssignedUserName = t.AssignedUserName,
+                        DueDate = t.DueDate,
+                        Status = t.Status,
+                        Priority = "Medium" // Add proper mapping
+                    }).ToList()
+                })
+                .FirstOrDefaultAsync(cancellationToken);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ProjectDetails>> GetById(Guid id)
+        public async Task<IReadOnlyList<ProjectSummary>> Handle(GetAllProjectsQuery request, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetProjectDetailsQuery(id));
-            if (result == null) return NotFound();
-            return Ok(result);
+            return await _readContext.Projects
+                .AsNoTracking()
+                .Select(p => new ProjectSummary
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Description = p.Description ?? string.Empty,
+                    TotalTasks = p.TotalTasks,
+                    CompletedTasks = p.CompletedTasks,
+                    LastUpdated = p.LastUpdated ?? p.CreatedAt
+                })
+                .ToListAsync(cancellationToken);
         }
 
-        [HttpGet("owner/{ownerId}")]
-        public async Task<ActionResult<IReadOnlyList<ProjectSummary>>> GetByOwner(Guid ownerId)
+        public async Task<IReadOnlyList<ProjectSummary>> Handle(GetProjectsByOwnerQuery request, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetProjectsByOwnerQuery(ownerId));
-            return Ok(result);
-        }
-
-        // Write Operations
-        [HttpPost]
-        public async Task<ActionResult<Guid>> Create(CreateProjectCommand command)
-        {
-            var result = await _mediator.Send(command);
-            return CreatedAtAction(nameof(GetById), new { id = result }, result);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, UpdateProjectCommand command)
-        {
-            if (id != command.ProjectId) return BadRequest();
-            await _mediator.Send(command);
-            return NoContent();
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
-        {
-            await _mediator.Send(new DeleteProjectCommand(id));
-            return NoContent();
-        }
-
-        // Task Operations
-        [HttpPost("{projectId}/tasks")]
-        public async Task<ActionResult<Guid>> AddTask(Guid projectId, AddTaskCommand command)
-        {
-            if (projectId != command.ProjectId) return BadRequest();
-            var taskId = await _mediator.Send(command);
-            return Ok(taskId);
-        }
-
-        [HttpGet("{projectId}/tasks")]
-        public async Task<ActionResult<IReadOnlyList<TaskSummary>>> GetProjectTasks(Guid projectId)
-        {
-            var tasks = await _mediator.Send(new GetProjectTasksQuery(projectId));
-            return Ok(tasks);
+            return await _readContext.Projects
+                .AsNoTracking()
+                .Where(p => p.OwnerId == request.OwnerId)
+                .Select(p => new ProjectSummary
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Description = p.Description ?? string.Empty,
+                    TotalTasks = p.TotalTasks,
+                    CompletedTasks = p.CompletedTasks,
+                    LastUpdated = p.LastUpdated ?? p.CreatedAt
+                })
+                .ToListAsync(cancellationToken);
         }
     }
 }

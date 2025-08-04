@@ -13,36 +13,29 @@ namespace TaskManagement.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task<User?> GetByIdAsync(Guid id)
         {
-            return await _context.Users.FindAsync(new object[] { id }, cancellationToken);
+            return await _context.Users.FindAsync(id);
         }
 
-        public async Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<User>> GetAllAsync()
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
+            return await _context.Users.ToListAsync();
         }
 
-        public async Task<IEnumerable<User>> GetAllAsync(CancellationToken cancellationToken = default)
+        public async Task<User?> GetByEmailAsync(string email)
         {
-            return await _context.Users.ToListAsync(cancellationToken);
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public async Task AddAsync(User user, CancellationToken cancellationToken = default)
+        public async Task AddAsync(User user)
         {
-            await _context.Users.AddAsync(user, cancellationToken);
+            await _context.Users.AddAsync(user);
         }
 
-        public async Task UpdateAsync(User user, CancellationToken cancellationToken = default)
+        public void Update(User user)
         {
             _context.Users.Update(user);
-            await Task.CompletedTask;
-        }
-
-        public async Task DeleteAsync(User user, CancellationToken cancellationToken = default)
-        {
-            _context.Users.Remove(user);
-            await Task.CompletedTask;
         }
 
         public void Delete(User user)
@@ -58,6 +51,36 @@ namespace TaskManagement.Infrastructure.Persistence.Repositories
         public async Task<bool> ExistsEmailAsync(string email)
         {
             return await _context.Users.AnyAsync(u => u.Email == email);
+        }
+
+        public Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<User>> GetAllAsync(CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddAsync(User user, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateAsync(User user, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteAsync(User user, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
         }
     }
 }

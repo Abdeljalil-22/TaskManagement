@@ -25,5 +25,6 @@ namespace TaskManagement.Application.ReadModels
         public string Status { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? LastUpdated { get; set; }
+        public ProjectReadModel Project { get; set; } 
     }
 }

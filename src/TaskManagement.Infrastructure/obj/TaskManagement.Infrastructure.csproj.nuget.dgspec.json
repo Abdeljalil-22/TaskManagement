@@ -4,86 +4,6 @@
     "/workspaces/TaskManagement/src/TaskManagement.Infrastructure/TaskManagement.Infrastructure.csproj": {}
   },
   "projects": {
-    "/workspaces/TaskManagement/src/TaskManagement.Application/TaskManagement.Application.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "/workspaces/TaskManagement/src/TaskManagement.Application/TaskManagement.Application.csproj",
-        "projectName": "TaskManagement.Application",
-        "projectPath": "/workspaces/TaskManagement/src/TaskManagement.Application/TaskManagement.Application.csproj",
-        "packagesPath": "/home/codespace/.nuget/packages/",
-        "outputPath": "/workspaces/TaskManagement/src/TaskManagement.Application/obj/",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "/home/codespace/.nuget/NuGet/NuGet.Config"
-        ],
-        "originalTargetFrameworks": [
-          "net8.0"
-        ],
-        "sources": {
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net8.0": {
-            "targetAlias": "net8.0",
-            "projectReferences": {
-              "/workspaces/TaskManagement/src/TaskManagement.Domain/TaskManagement.Domain.csproj": {
-                "projectPath": "/workspaces/TaskManagement/src/TaskManagement.Domain/TaskManagement.Domain.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        }
-      },
-      "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
-          "dependencies": {
-            "Dapper": {
-              "target": "Package",
-              "version": "[2.1.66, )"
-            },
-            "MediatR": {
-              "target": "Package",
-              "version": "[11.1.0, )"
-            },
-            "MediatR.Extensions.Microsoft.DependencyInjection": {
-              "target": "Package",
-              "version": "[11.1.0, )"
-            },
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[9.0.7, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.412/PortableRuntimeIdentifierGraph.json"
-        }
-      }
-    },
     "/workspaces/TaskManagement/src/TaskManagement.Domain/TaskManagement.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -125,7 +45,7 @@
           "dependencies": {
             "MediatR": {
               "target": "Package",
-              "version": "[11.1.0, )"
+              "version": "[12.5.0, )"
             }
           },
           "imports": [
@@ -170,9 +90,6 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/workspaces/TaskManagement/src/TaskManagement.Application/TaskManagement.Application.csproj": {
-                "projectPath": "/workspaces/TaskManagement/src/TaskManagement.Application/TaskManagement.Application.csproj"
-              },
               "/workspaces/TaskManagement/src/TaskManagement.Domain/TaskManagement.Domain.csproj": {
                 "projectPath": "/workspaces/TaskManagement/src/TaskManagement.Domain/TaskManagement.Domain.csproj"
               }

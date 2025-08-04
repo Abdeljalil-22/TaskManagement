@@ -18,7 +18,7 @@ namespace TaskManagement.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TaskDetails>> GetById(Guid id)
+        public async Task<IActionResult> GetById(Guid id)
         {
             var result = await _mediator.Send(new GetTaskDetailsQuery(id));
             if (result == null) return NotFound();

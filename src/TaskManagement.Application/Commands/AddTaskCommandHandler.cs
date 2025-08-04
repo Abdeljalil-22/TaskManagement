@@ -17,8 +17,8 @@ namespace TaskManagement.Application.Commands
         {
             var project = await _projectRepository.GetByIdAsync(request.ProjectId);
             if (project == null) throw new Exception("Project not found");
-            var task = project.AddTask(request.Title, request.Description, request.AssignedUserId, request.DueDate);
-            await _unitOfWork.CommitAsync();
+            var task = project.AddTask(request.Title, request.Description, request.DueDate);
+            await _unitOfWork.CommitTransactionAsync();
             return task.Id;
         }
     }

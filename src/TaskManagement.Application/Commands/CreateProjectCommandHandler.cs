@@ -19,7 +19,7 @@ namespace TaskManagement.Application.Commands
         {
             var project = new Project(request.Name, request.Description, request.OwnerId);
             await _projectRepository.AddAsync(project);
-            await _unitOfWork.CommitAsync();
+            await _unitOfWork.CommitTransactionAsync();
             return project.Id;
         }
     }

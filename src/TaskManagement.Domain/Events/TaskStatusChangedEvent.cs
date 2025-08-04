@@ -1,15 +1,16 @@
 using TaskManagement.Domain.Common;
 using TaskManagement.Domain.ValueObjects;
+using TaskStatus = TaskManagement.Domain.ValueObjects.TaskStatus;
 
 namespace TaskManagement.Domain.Events;
 
 public class TaskStatusChangedEvent : DomainEvent
 {
     public Guid TaskId { get; }
-    public TaskManagement.Domain.ValueObjects.TaskStatus OldStatus { get; }
-    public TaskManagement.Domain.ValueObjects.TaskStatus NewStatus { get; }
+    public TaskStatus OldStatus { get; }
+    public TaskStatus NewStatus { get; }
 
-    public TaskStatusChangedEvent(Guid taskId, TaskManagement.Domain.ValueObjects.TaskStatus oldStatus, TaskManagement.Domain.ValueObjects.TaskStatus newStatus)
+    public TaskStatusChangedEvent(Guid taskId, TaskStatus oldStatus, TaskStatus newStatus)
     {
         TaskId = taskId;
         OldStatus = oldStatus;
