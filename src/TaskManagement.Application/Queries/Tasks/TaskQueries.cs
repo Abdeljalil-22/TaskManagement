@@ -1,7 +1,8 @@
 using MediatR;
 using TaskManagement.Application.ReadModels.Tasks;
 using Microsoft.EntityFrameworkCore;
-using TaskManagement.Infrastructure.Persistence;
+using TaskManagement.Application.Interfaces;
+
 
 namespace TaskManagement.Application.Queries.Tasks
 {
@@ -16,9 +17,9 @@ namespace TaskManagement.Application.Queries.Tasks
         IRequestHandler<GetProjectTasksQuery, IReadOnlyList<TaskSummary>>,
         IRequestHandler<GetUserTasksQuery, IReadOnlyList<TaskSummary>>
     {
-        private readonly ReadDbContext _readContext;
+        private readonly IReadDbContext _readContext;
 
-        public TaskQueryHandlers(ReadDbContext readContext)
+        public TaskQueryHandlers(IReadDbContext readContext)
         {
             _readContext = readContext;
         }
@@ -33,8 +34,8 @@ namespace TaskManagement.Application.Queries.Tasks
                     Id = t.Id,
                     Title = t.Title,
                     Description = t.Description ?? string.Empty,
-                    ProjectId = t.ProjectId,
-                    ProjectName = t.ProjectName ?? string.Empty,
+                    ProjectId = t.Project.Id,
+                    ProjectName = t.Project.Name ?? string.Empty,
                     AssignedUserId = t.AssignedUserId,
                     AssignedUserName = t.AssignedUserName,
                     DueDate = t.DueDate,
@@ -51,12 +52,12 @@ namespace TaskManagement.Application.Queries.Tasks
         {
             return await _readContext.Tasks
                 .AsNoTracking()
-                .Where(t => t.ProjectId == request.ProjectId)
+                .Where(t => t.Project.Id == request.ProjectId)
                 .Select(t => new TaskSummary
                 {
                     Id = t.Id,
                     Title = t.Title,
-                    ProjectName = t.ProjectName ?? string.Empty,
+                    ProjectName = t.Project.Name ?? string.Empty,
                     Status = t.Status,
                     Priority = "Medium", // Add proper mapping
                     DueDate = t.DueDate
@@ -73,7 +74,7 @@ namespace TaskManagement.Application.Queries.Tasks
                 {
                     Id = t.Id,
                     Title = t.Title,
-                    ProjectName = t.ProjectName ?? string.Empty,
+                    ProjectName = t.Project.Name ?? string.Empty,
                     Status = t.Status,
                     Priority = "Medium", // Add proper mapping
                     DueDate = t.DueDate

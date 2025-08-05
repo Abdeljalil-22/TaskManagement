@@ -2,6 +2,9 @@ using MediatR;
 using TaskManagement.Domain.Interfaces;
 using TaskManagement.Domain.ValueObjects;
 
+
+using TaskManagement.Domain.Exceptions;
+
 namespace TaskManagement.Application.Commands.Tasks
 {
     public record AddTaskCommand(
@@ -10,7 +13,7 @@ namespace TaskManagement.Application.Commands.Tasks
         string Description,
         DateTime? DueDate,
         Guid? AssignedUserId,
-        Priority Priority = Priority.Medium
+        Priority? Priority = null
     ) : IRequest<Guid>;
 
     public record UpdateTaskCommand(
@@ -25,14 +28,14 @@ namespace TaskManagement.Application.Commands.Tasks
     
     public record UnassignTaskCommand(Guid TaskId) : IRequest;
     
-    public record ChangeTaskStatusCommand(Guid TaskId, TaskStatus NewStatus) : IRequest;
+    public record ChangeTaskStatusCommand(Guid TaskId, Domain.ValueObjects.TaskStatus NewStatus) : IRequest;
 
     public class TaskCommandHandlers :
-        IRequestHandler<AddTaskCommand, Guid>,
-        IRequestHandler<UpdateTaskCommand>,
-        IRequestHandler<AssignTaskCommand>,
-        IRequestHandler<UnassignTaskCommand>,
-        IRequestHandler<ChangeTaskStatusCommand>
+        IRequestHandler<AddTaskCommand, Guid>
+        //IRequestHandler<UpdateTaskCommand>,
+        //IRequestHandler<AssignTaskCommand>,
+        //IRequestHandler<UnassignTaskCommand>,
+        //IRequestHandler<ChangeTaskStatusCommand>
     {
         private readonly IProjectRepository _projectRepository;
         private readonly ITaskRepository _taskRepository;
@@ -51,52 +54,58 @@ namespace TaskManagement.Application.Commands.Tasks
         public async Task<Guid> Handle(AddTaskCommand request, CancellationToken cancellationToken)
         {
             var project = await _projectRepository.GetByIdAsync(request.ProjectId)
-                ?? throw new NotFoundException($"Project with ID {request.ProjectId} not found");
+                ?? throw new NotFoundException($"Project",request.ProjectId);
 
             var task = project.AddTask(request.Title, request.Description, request.DueDate);
+            task.SetPriority(request.Priority ?? Priority.Medium);
+
             if (request.AssignedUserId.HasValue)
             {
                 task.AssignTo(request.AssignedUserId.Value);
             }
 
-            await _unitOfWork.CommitAsync(cancellationToken);
+            await _unitOfWork.CommitTransactionAsync(cancellationToken);
             return task.Id;
         }
 
-        public async Task Handle(UpdateTaskCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateTaskCommand request, CancellationToken cancellationToken)
         {
             var task = await _taskRepository.GetByIdAsync(request.TaskId)
-                ?? throw new NotFoundException($"Task with ID {request.TaskId} not found");
+                ?? throw new NotFoundException($"Task", request.TaskId);
 
             task.UpdateDetails(request.Title, request.Description, request.DueDate);
-            await _unitOfWork.CommitAsync(cancellationToken);
+            await _unitOfWork.CommitTransactionAsync(cancellationToken);
+            return Unit.Value;
         }
 
-        public async Task Handle(AssignTaskCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(AssignTaskCommand request, CancellationToken cancellationToken)
         {
             var task = await _taskRepository.GetByIdAsync(request.TaskId)
-                ?? throw new NotFoundException($"Task with ID {request.TaskId} not found");
+                ?? throw new NotFoundException($"Task", request.TaskId);
 
             task.AssignTo(request.UserId);
-            await _unitOfWork.CommitAsync(cancellationToken);
+            await _unitOfWork.CommitTransactionAsync(cancellationToken);
+            return Unit.Value;
         }
 
-        public async Task Handle(UnassignTaskCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UnassignTaskCommand request, CancellationToken cancellationToken)
         {
             var task = await _taskRepository.GetByIdAsync(request.TaskId)
-                ?? throw new NotFoundException($"Task with ID {request.TaskId} not found");
+                ?? throw new NotFoundException($"Task", request.TaskId);
 
             task.Unassign();
-            await _unitOfWork.CommitAsync(cancellationToken);
+            await _unitOfWork.CommitTransactionAsync(cancellationToken);
+            return Unit.Value;
         }
 
-        public async Task Handle(ChangeTaskStatusCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(ChangeTaskStatusCommand request, CancellationToken cancellationToken)
         {
             var task = await _taskRepository.GetByIdAsync(request.TaskId)
-                ?? throw new NotFoundException($"Task with ID {request.TaskId} not found");
+                ?? throw new NotFoundException($"Task", request.TaskId);
 
             task.ChangeStatus(request.NewStatus);
-            await _unitOfWork.CommitAsync(cancellationToken);
+            await _unitOfWork.CommitTransactionAsync(cancellationToken);
+            return Unit.Value;
         }
     }
 }

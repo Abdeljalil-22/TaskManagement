@@ -1,18 +1,15 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.5.2.0
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72D-47B6-A68D-7590B98EB39B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagement.API", "src\TaskManagement.API\TaskManagement.API.csproj", "{B4CDE7A2-FFA6-3E3A-1A77-776589C98A7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagement.Infrastructure", "src\TaskManagement.Infrastructure\TaskManagement.Infrastructure.csproj", "{7100FFA0-C44B-2047-35D1-38F39C57D005}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagement.Application", "src\TaskManagement.Application\TaskManagement.Application.csproj", "{6811BF45-9E4D-75DC-5CD7-9EA6F6861EEF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagement.Domain", "src\TaskManagement.Domain\TaskManagement.Domain.csproj", "{8D681FA5-75F5-EC05-274C-EC7CABE4A8A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagement.Sync", "src\TaskManagement.Sync\TaskManagement.Sync.csproj", "{DA3D4E56-3168-CE36-DC48-90F3F3615CA0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagement.Application", "src\TaskManagement.Application\TaskManagement.Application.csproj", "{6811BF45-9E4D-75DC-5CD7-9EA6F6861EEF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagement.Infrastructure", "src\TaskManagement.Infrastructure\TaskManagement.Infrastructure.csproj", "{7100FFA0-C44B-2047-35D1-38F39C57D005}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,34 +21,23 @@ Global
 		{B4CDE7A2-FFA6-3E3A-1A77-776589C98A7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4CDE7A2-FFA6-3E3A-1A77-776589C98A7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4CDE7A2-FFA6-3E3A-1A77-776589C98A7E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7100FFA0-C44B-2047-35D1-38F39C57D005}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7100FFA0-C44B-2047-35D1-38F39C57D005}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7100FFA0-C44B-2047-35D1-38F39C57D005}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7100FFA0-C44B-2047-35D1-38F39C57D005}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8D681FA5-75F5-EC05-274C-EC7CABE4A8A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8D681FA5-75F5-EC05-274C-EC7CABE4A8A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8D681FA5-75F5-EC05-274C-EC7CABE4A8A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8D681FA5-75F5-EC05-274C-EC7CABE4A8A5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DA3D4E56-3168-CE36-DC48-90F3F3615CA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA3D4E56-3168-CE36-DC48-90F3F3615CA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA3D4E56-3168-CE36-DC48-90F3F3615CA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA3D4E56-3168-CE36-DC48-90F3F3615CA0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6811BF45-9E4D-75DC-5CD7-9EA6F6861EEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6811BF45-9E4D-75DC-5CD7-9EA6F6861EEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6811BF45-9E4D-75DC-5CD7-9EA6F6861EEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6811BF45-9E4D-75DC-5CD7-9EA6F6861EEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D681FA5-75F5-EC05-274C-EC7CABE4A8A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D681FA5-75F5-EC05-274C-EC7CABE4A8A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D681FA5-75F5-EC05-274C-EC7CABE4A8A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D681FA5-75F5-EC05-274C-EC7CABE4A8A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7100FFA0-C44B-2047-35D1-38F39C57D005}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7100FFA0-C44B-2047-35D1-38F39C57D005}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7100FFA0-C44B-2047-35D1-38F39C57D005}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7100FFA0-C44B-2047-35D1-38F39C57D005}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{B4CDE7A2-FFA6-3E3A-1A77-776589C98A7E} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
-		{7100FFA0-C44B-2047-35D1-38F39C57D005} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
-		{8D681FA5-75F5-EC05-274C-EC7CABE4A8A5} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
-		{DA3D4E56-3168-CE36-DC48-90F3F3615CA0} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
-		{6811BF45-9E4D-75DC-5CD7-9EA6F6861EEF} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
-	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {185AC731-7BD8-43EB-948E-717CA3E43482}
+		SolutionGuid = {F4EFC636-D1F8-4FE3-86D7-D0209F5844EA}
 	EndGlobalSection
 EndGlobal

@@ -1,39 +1,46 @@
 {
   "format": 1,
   "restore": {
-    "/workspaces/TaskManagement/src/TaskManagement.API/TaskManagement.API.csproj": {}
+    "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.API\\TaskManagement.API.csproj": {}
   },
   "projects": {
-    "/workspaces/TaskManagement/src/TaskManagement.API/TaskManagement.API.csproj": {
+    "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.API\\TaskManagement.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/workspaces/TaskManagement/src/TaskManagement.API/TaskManagement.API.csproj",
+        "projectUniqueName": "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.API\\TaskManagement.API.csproj",
         "projectName": "TaskManagement.API",
-        "projectPath": "/workspaces/TaskManagement/src/TaskManagement.API/TaskManagement.API.csproj",
-        "packagesPath": "/home/codespace/.nuget/packages/",
-        "outputPath": "/workspaces/TaskManagement/src/TaskManagement.API/obj/",
+        "projectPath": "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.API\\TaskManagement.API.csproj",
+        "packagesPath": "C:\\Users\\abdeljalil\\.nuget\\packages\\",
+        "outputPath": "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.API\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/codespace/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\abdeljalil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/workspaces/TaskManagement/src/TaskManagement.Application/TaskManagement.Application.csproj": {
-                "projectPath": "/workspaces/TaskManagement/src/TaskManagement.Application/TaskManagement.Application.csproj"
+              "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.Application\\TaskManagement.Application.csproj": {
+                "projectPath": "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.Application\\TaskManagement.Application.csproj"
               },
-              "/workspaces/TaskManagement/src/TaskManagement.Domain/TaskManagement.Domain.csproj": {
-                "projectPath": "/workspaces/TaskManagement/src/TaskManagement.Domain/TaskManagement.Domain.csproj"
+              "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.Domain\\TaskManagement.Domain.csproj": {
+                "projectPath": "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.Domain\\TaskManagement.Domain.csproj"
               },
-              "/workspaces/TaskManagement/src/TaskManagement.Infrastructure/TaskManagement.Infrastructure.csproj": {
-                "projectPath": "/workspaces/TaskManagement/src/TaskManagement.Infrastructure/TaskManagement.Infrastructure.csproj"
+              "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.Infrastructure\\TaskManagement.Infrastructure.csproj": {
+                "projectPath": "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.Infrastructure\\TaskManagement.Infrastructure.csproj"
               }
             }
           }
@@ -47,7 +54,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -60,6 +68,18 @@
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.18, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.7, )"
             },
             "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
@@ -89,34 +109,41 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.412/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/workspaces/TaskManagement/src/TaskManagement.Application/TaskManagement.Application.csproj": {
+    "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.Application\\TaskManagement.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/workspaces/TaskManagement/src/TaskManagement.Application/TaskManagement.Application.csproj",
+        "projectUniqueName": "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.Application\\TaskManagement.Application.csproj",
         "projectName": "TaskManagement.Application",
-        "projectPath": "/workspaces/TaskManagement/src/TaskManagement.Application/TaskManagement.Application.csproj",
-        "packagesPath": "/home/codespace/.nuget/packages/",
-        "outputPath": "/workspaces/TaskManagement/src/TaskManagement.Application/obj/",
+        "projectPath": "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.Application\\TaskManagement.Application.csproj",
+        "packagesPath": "C:\\Users\\abdeljalil\\.nuget\\packages\\",
+        "outputPath": "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.Application\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/codespace/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\abdeljalil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/workspaces/TaskManagement/src/TaskManagement.Domain/TaskManagement.Domain.csproj": {
-                "projectPath": "/workspaces/TaskManagement/src/TaskManagement.Domain/TaskManagement.Domain.csproj"
+              "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.Domain\\TaskManagement.Domain.csproj": {
+                "projectPath": "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.Domain\\TaskManagement.Domain.csproj"
               }
             }
           }
@@ -130,7 +157,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -165,26 +193,33 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.412/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/workspaces/TaskManagement/src/TaskManagement.Domain/TaskManagement.Domain.csproj": {
+    "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.Domain\\TaskManagement.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/workspaces/TaskManagement/src/TaskManagement.Domain/TaskManagement.Domain.csproj",
+        "projectUniqueName": "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.Domain\\TaskManagement.Domain.csproj",
         "projectName": "TaskManagement.Domain",
-        "projectPath": "/workspaces/TaskManagement/src/TaskManagement.Domain/TaskManagement.Domain.csproj",
-        "packagesPath": "/home/codespace/.nuget/packages/",
-        "outputPath": "/workspaces/TaskManagement/src/TaskManagement.Domain/obj/",
+        "projectPath": "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.Domain\\TaskManagement.Domain.csproj",
+        "packagesPath": "C:\\Users\\abdeljalil\\.nuget\\packages\\",
+        "outputPath": "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/codespace/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\abdeljalil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -202,7 +237,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -229,34 +265,44 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.412/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/workspaces/TaskManagement/src/TaskManagement.Infrastructure/TaskManagement.Infrastructure.csproj": {
+    "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.Infrastructure\\TaskManagement.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/workspaces/TaskManagement/src/TaskManagement.Infrastructure/TaskManagement.Infrastructure.csproj",
+        "projectUniqueName": "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.Infrastructure\\TaskManagement.Infrastructure.csproj",
         "projectName": "TaskManagement.Infrastructure",
-        "projectPath": "/workspaces/TaskManagement/src/TaskManagement.Infrastructure/TaskManagement.Infrastructure.csproj",
-        "packagesPath": "/home/codespace/.nuget/packages/",
-        "outputPath": "/workspaces/TaskManagement/src/TaskManagement.Infrastructure/obj/",
+        "projectPath": "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.Infrastructure\\TaskManagement.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\abdeljalil\\.nuget\\packages\\",
+        "outputPath": "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/codespace/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\abdeljalil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/workspaces/TaskManagement/src/TaskManagement.Domain/TaskManagement.Domain.csproj": {
-                "projectPath": "/workspaces/TaskManagement/src/TaskManagement.Domain/TaskManagement.Domain.csproj"
+              "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.Application\\TaskManagement.Application.csproj": {
+                "projectPath": "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.Application\\TaskManagement.Application.csproj"
+              },
+              "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.Domain\\TaskManagement.Domain.csproj": {
+                "projectPath": "C:\\SourceTest\\new\\TaskManagement\\src\\TaskManagement.Domain\\TaskManagement.Domain.csproj"
               }
             }
           }
@@ -270,17 +316,26 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.5.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[9.0.7, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.7, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
               "version": "[9.0.7, )"
             },
@@ -305,7 +360,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.412/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

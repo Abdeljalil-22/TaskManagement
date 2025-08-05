@@ -13,70 +13,56 @@ namespace TaskManagement.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<Project?> GetByIdAsync(Guid id)
+        public async Task<IEnumerable<Project>> GetAllAsync(CancellationToken cancellationToken = default)
+        {
+            return await _context.Projects
+                .Include(p => p.Owner)
+                .ToListAsync(cancellationToken);
+        }
+
+        public async Task<Project?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            return await _context.Projects
+                .Include(p => p.Owner)
+                .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+        }
+
+        public async Task<IEnumerable<Project>> GetByOwnerIdAsync(Guid ownerId, CancellationToken cancellationToken = default)
+        {
+            return await _context.Projects
+                .Include(p => p.Owner)
+                .Where(p => p.OwnerId == ownerId)
+                .ToListAsync(cancellationToken);
+        }
+
+        public async Task<Project?> GetWithTasksAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return await _context.Projects
                 .Include(p => p.Tasks)
                 .Include(p => p.Owner)
-                .FirstOrDefaultAsync(p => p.Id == id);
+                .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
         }
 
-        public async Task<IEnumerable<Project>> GetAllAsync()
+        public async Task AddAsync(Project project, CancellationToken cancellationToken = default)
         {
-            return await _context.Projects
-                .Include(p => p.Tasks)
-                .Include(p => p.Owner)
-                .ToListAsync();
+            await _context.Projects.AddAsync(project, cancellationToken);
         }
 
-        public async Task AddAsync(Project project)
-        {
-            await _context.Projects.AddAsync(project);
-        }
-
-        public void Update(Project project)
+        public async Task UpdateAsync(Project project, CancellationToken cancellationToken = default)
         {
             _context.Projects.Update(project);
+            await Task.CompletedTask;
+        }
+
+        public async Task DeleteAsync(Project project, CancellationToken cancellationToken = default)
+        {
+            _context.Projects.Remove(project);
+            await Task.CompletedTask;
         }
 
         public void Delete(Project project)
         {
             _context.Projects.Remove(project);
-        }
-
-        Task<Project?> IProjectRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<IEnumerable<Project>> IProjectRepository.GetAllAsync(CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<IEnumerable<Project>> IProjectRepository.GetByOwnerIdAsync(Guid ownerId, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<Project?> IProjectRepository.GetWithTasksAsync(Guid id, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task IProjectRepository.AddAsync(Project project, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task IProjectRepository.UpdateAsync(Project project, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task IProjectRepository.DeleteAsync(Project project, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
         }
     }
 }

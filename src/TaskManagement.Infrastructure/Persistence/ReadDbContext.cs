@@ -4,7 +4,7 @@ using TaskManagement.Application.ReadModels;
 
 namespace TaskManagement.Infrastructure.Persistence
 {
-    public class ReadDbContext : DbContext, IReadDbContext
+    public class ReadDbContext : DbContext, Application.Interfaces.IReadDbContext
     {
         public ReadDbContext(DbContextOptions<ReadDbContext> options)
             : base(options)

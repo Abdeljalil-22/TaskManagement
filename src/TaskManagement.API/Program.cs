@@ -1,12 +1,22 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
+using TaskManagement.Application.Queries;
+using TaskManagement.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+builder.Services.AddInfrastructure(
+    builder.Configuration.GetConnectionString("WriteConnection"),
+    builder.Configuration.GetConnectionString("ReadConnection")
+);
+
+builder.Services.AddMediatR(cfg =>
+    cfg.RegisterServicesFromAssembly(typeof(GetAllProjectsQuery).Assembly));
+
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

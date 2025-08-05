@@ -9,7 +9,7 @@ public interface ITaskRepository
     Task<IEnumerable<ProjectTask>> GetByProjectIdAsync(Guid projectId, CancellationToken cancellationToken = default);
     Task<IEnumerable<ProjectTask>> GetFilteredAsync(
         Guid? projectId = null,
-        TaskStatus? status = null,
+        TaskManagement.Domain.ValueObjects.TaskStatus? status = null,
         Priority? priority = null,
         Guid? assignedUserId = null,
         string? searchTerm = null,

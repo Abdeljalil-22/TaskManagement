@@ -16,7 +16,10 @@ namespace TaskManagement.Application.Queries
         }
         public async Task<IEnumerable<Project>> Handle(GetAllProjectsQuery request, CancellationToken cancellationToken)
         {
-            return await _projectRepository.GetAllAsync();
+        
+                
+
+            return  await _projectRepository.GetAllAsync();
         }
     }
 }

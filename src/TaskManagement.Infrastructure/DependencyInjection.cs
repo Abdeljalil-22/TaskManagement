@@ -1,11 +1,12 @@
-using Microsoft.Extensions.DependencyInjection;
+using MediatR;
+using MediatR.Registration;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
+using TaskManagement.Application.Interfaces;
 using TaskManagement.Domain.Interfaces;
 using TaskManagement.Infrastructure.Persistence;
 using TaskManagement.Infrastructure.Persistence.Repositories;
-using MediatR;
-using System.Reflection;
-using MediatR.Registration;
 
 namespace TaskManagement.Infrastructure;
 
@@ -34,6 +35,7 @@ public static class DependencyInjection
                         maxRetryDelay: TimeSpan.FromSeconds(30),
                         errorNumbersToAdd: null);
                 }));
+        services.AddScoped<IReadDbContext>(provider => provider.GetRequiredService<ReadDbContext>());
 
         // Repositories
         services.AddScoped<IProjectRepository, ProjectRepository>();
@@ -42,12 +44,7 @@ public static class DependencyInjection
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-        // Register MediatR
-        //services.AddMediatR(cfg =>
-        //{
-        //    // Use the correct method from MediatR.Registration namespace
-        //    //ServiceRegistrar.AddMediatRClasses(cfg, new[] { Assembly.GetExecutingAssembly() });
-        //});
+   
 
         return services;
     }

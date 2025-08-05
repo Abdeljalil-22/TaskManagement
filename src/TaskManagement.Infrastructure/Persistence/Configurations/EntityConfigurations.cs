@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TaskManagement.Domain.Entities;
+using TaskManagement.Domain.ValueObjects;
+//using TaskManagement.Domain.ValueObjects;
+//using TaskManagement.Domain.ValueObjects;
 
 namespace TaskManagement.Infrastructure.Persistence.Configurations
 {
@@ -46,10 +49,16 @@ namespace TaskManagement.Infrastructure.Persistence.Configurations
                 .HasMaxLength(1000);
 
             builder.Property(t => t.Status)
-                .HasConversion<string>();
+              .HasConversion(
+                  s => s.Value,                     
+                  s => Domain.ValueObjects.TaskStatus.FromString(s))     
+              .HasMaxLength(50);
 
             builder.Property(t => t.Priority)
-                .HasConversion<string>();
+               .HasConversion(
+                   p => p.Value,                    
+                   s => Priority.FromString(s))     
+               .HasMaxLength(50);
 
             builder.HasOne(t => t.AssignedUser)
                 .WithMany()

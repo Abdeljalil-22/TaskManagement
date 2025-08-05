@@ -13,7 +13,8 @@ namespace TaskManagement.Application.Queries
         }
         public async Task<Project> Handle(GetProjectByIdQuery request, CancellationToken cancellationToken)
         {
-            return await _projectRepository.GetByIdAsync(request.ProjectId);
+            //return await _projectRepository.GetByIdAsync(request.ProjectId);
+            return new Project("test","fsaf",Guid.NewGuid()) ;
         }
     }
 }

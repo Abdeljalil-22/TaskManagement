@@ -1,24 +1,24 @@
 using MediatR;
 using TaskManagement.Application.ReadModels.Projects;
 using Microsoft.EntityFrameworkCore;
-using TaskManagement.Infrastructure.Persistence;
+using TaskManagement.Application.Interfaces;
 
 namespace TaskManagement.Application.Queries.Projects
 {
     public record GetProjectDetailsQuery(Guid ProjectId) : IRequest<ProjectDetails?>;
     
-    public record GetAllProjectsQuery : IRequest<IReadOnlyList<ProjectSummary>>;
+    //public record GetAllProjectsQuery : IRequest<IReadOnlyList<ProjectSummary>>;
     
     public record GetProjectsByOwnerQuery(Guid OwnerId) : IRequest<IReadOnlyList<ProjectSummary>>;
 
     public class ProjectQueryHandlers : 
         IRequestHandler<GetProjectDetailsQuery, ProjectDetails?>,
-        IRequestHandler<GetAllProjectsQuery, IReadOnlyList<ProjectSummary>>,
+        //IRequestHandler<GetAllProjectsQuery, IReadOnlyList<ProjectSummary>>,
         IRequestHandler<GetProjectsByOwnerQuery, IReadOnlyList<ProjectSummary>>
     {
-        private readonly ReadDbContext _readContext;
+        private readonly IReadDbContext _readContext;
 
-        public ProjectQueryHandlers(ReadDbContext readContext)
+        public ProjectQueryHandlers(IReadDbContext readContext)
         {
             _readContext = readContext;
         }
@@ -54,21 +54,21 @@ namespace TaskManagement.Application.Queries.Projects
                 .FirstOrDefaultAsync(cancellationToken);
         }
 
-        public async Task<IReadOnlyList<ProjectSummary>> Handle(GetAllProjectsQuery request, CancellationToken cancellationToken)
-        {
-            return await _readContext.Projects
-                .AsNoTracking()
-                .Select(p => new ProjectSummary
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Description = p.Description ?? string.Empty,
-                    TotalTasks = p.TotalTasks,
-                    CompletedTasks = p.CompletedTasks,
-                    LastUpdated = p.LastUpdated ?? p.CreatedAt
-                })
-                .ToListAsync(cancellationToken);
-        }
+        //public async Task<IReadOnlyList<ProjectSummary>> Handle(GetAllProjectsQuery request, CancellationToken cancellationToken)
+        //{
+        //    return await _readContext.Projects
+        //        .AsNoTracking()
+        //        .Select(p => new ProjectSummary
+        //        {
+        //            Id = p.Id,
+        //            Name = p.Name,
+        //            Description = p.Description ?? string.Empty,
+        //            TotalTasks = p.TotalTasks,
+        //            CompletedTasks = p.CompletedTasks,
+        //            LastUpdated = p.LastUpdated ?? p.CreatedAt
+        //        })
+        //        .ToListAsync(cancellationToken);
+        //}
 
         public async Task<IReadOnlyList<ProjectSummary>> Handle(GetProjectsByOwnerQuery request, CancellationToken cancellationToken)
         {

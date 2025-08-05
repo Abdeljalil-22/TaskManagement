@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using TaskManagement.Application.ReadModels;
 
 namespace TaskManagement.Application.Interfaces;
